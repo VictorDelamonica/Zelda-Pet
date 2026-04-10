@@ -1,0 +1,48 @@
+<idea-plugin>
+    <id>com.zeldapet.link-walker</id>
+    <name>Zelda Pet - Link Walker</name>
+    <vendor email="support@example.com" url="https://example.com">Zelda Pet</vendor>
+
+    <description><![CDATA[
+        <p>A fun IntelliJ IDEA plugin that displays an animated Link character walking at the bottom of the left panel.</p>
+        <p>Features:</p>
+        <ul>
+            <li>Animated Link sprite walking animation</li>
+            <li>Positioned at the bottom of the left panel</li>
+            <li>Brings a touch of Hyrule to your IDE</li>
+        </ul>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h2>1.0.0</h2>
+        <ul>
+            <li>Initial release</li>
+            <li>Animated Link walking at the bottom of the left panel</li>
+        </ul>
+    ]]></change-notes>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html for description -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Register the floating window service -->
+        <projectService serviceImplementation="com.zeldapet.linkwalker.LinkFloatingWindowService"/>
+
+        <!-- Register startup activity -->
+        <postStartupActivity implementation="com.zeldapet.linkwalker.ZeldaPetStartupActivity"/>
+
+        <!-- Add action to toggle the floating window -->
+        <action id="ZeldaPet.ToggleFloatingWindow"
+                class="com.zeldapet.linkwalker.ToggleLinkFloatingWindowAction"
+                text="Toggle Link Walker"
+                description="Show/hide the animated Link character">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.zeldapet.linkwalker.ZeldaPetApplicationListener"
+                  topic="com.intellij.openapi.application.ApplicationListener"/>
+    </applicationListeners>
+</idea-plugin>
