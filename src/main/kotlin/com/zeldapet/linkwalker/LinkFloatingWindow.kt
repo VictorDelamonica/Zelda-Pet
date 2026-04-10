@@ -31,6 +31,7 @@ class LinkFloatingWindow(private val project: Project) : Disposable, MouseListen
 
         // Create the draggable Link component
         linkComponent = DraggableLinkComponent().apply {
+            parentWindow = frame
             addMouseListener(this@LinkFloatingWindow)
             addMouseMotionListener(this@LinkFloatingWindow)
         }

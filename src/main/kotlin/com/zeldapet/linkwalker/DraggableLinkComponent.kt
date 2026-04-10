@@ -15,6 +15,7 @@ class DraggableLinkComponent : JComponent(), Disposable, ActionListener {
     private var linkImage: Image? = null
     private var scaledImage: Image? = null
     var isBeingDragged = false
+    var parentWindow: Window? = null
 
     // Animation properties
     private var xPosition = 0
@@ -88,7 +89,7 @@ class DraggableLinkComponent : JComponent(), Disposable, ActionListener {
 
             // Get screen bounds
             val screenSize = Toolkit.getDefaultToolkit().screenSize
-            val maxX = screenSize.width - (linkImage?.getWidth(null) ?: 100)
+            val maxX = screenSize.width - (scaledImage?.getWidth(null) ?: 100)
 
             // Bounce off edges
             if (xPosition >= maxX || xPosition <= 0) {
@@ -96,7 +97,7 @@ class DraggableLinkComponent : JComponent(), Disposable, ActionListener {
             }
 
             // Update parent window position
-            (parent as? Window)?.let { window ->
+            parentWindow?.let { window ->
                 val newLocation = Point(
                     window.location.x + moveSpeed * direction,
                     window.location.y
